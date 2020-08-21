@@ -19,6 +19,14 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
+    
+    - name: terraform-fmt
+      # You may pin to the exact commit or the version.
+      # uses: dflook/terraform-fmt@80e2fe31f8db99ea0e0e907478e6ce05a99af809
+      uses: dflook/terraform-fmt@v1.4.1
+      with:
+        # Path to the terraform configuration
+        path: .
 
     - name: terraform-docs
       # You may pin to the exact commit or the version.
