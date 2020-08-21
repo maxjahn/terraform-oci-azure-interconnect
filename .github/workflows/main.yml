@@ -1,6 +1,6 @@
 # basic workflow for validating, formatting and generating documentation of terraform projects
 
-name: tf-docs
+name: terraform preparation
 on:
   push:
     branches: [ master ]
