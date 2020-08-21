@@ -27,12 +27,7 @@ jobs:
       id: validate
       run: terraform validate -no-color
 
-    - name: Terraform Plan
-      id: plan
-      run: terraform plan -no-color
-      continue-on-error: true
-
-    - name: terraform-docs
+    - name: Terraform Docs
       # You may pin to the exact commit or the version.
       # uses: Dirrk/terraform-docs@26b70436ceceba0a62c6b083d67c0796ea89bdeb
       uses: Dirrk/terraform-docs@v1.0.8
