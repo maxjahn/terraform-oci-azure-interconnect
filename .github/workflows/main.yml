@@ -36,3 +36,4 @@ jobs:
       # If true it will commit and push the changes
         tf_docs_git_push: true
         tf_docs_output_file: README.md
+        tf_docs_output_method: replace
