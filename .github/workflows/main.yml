@@ -1,0 +1,51 @@
+# This is a basic workflow to help you get started with Actions
+
+name: tf-docs
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master main]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    - name: terraform-docs
+      # You may pin to the exact commit or the version.
+      # uses: Dirrk/terraform-docs@26b70436ceceba0a62c6b083d67c0796ea89bdeb
+      uses: Dirrk/terraform-docs@v1.0.8
+      with:
+        # Directories of terraform modules to generate docs for seperated by commas (conflicts with atlantis/find dirs)
+        tf_docs_working_dir: # optional, default is .
+        # Generate directories by parsing an atlantis formatted yaml to enable provide the file name to parse (eg atlantis.yaml)
+        tf_docs_atlantis_file: # optional, default is disabled
+        # Generate directories by running find ./tf_docs_find_dir -name *.tf
+        tf_docs_find_dir: # optional, default is disabled
+        # File in module directory where the docs should be placed
+        tf_docs_output_file: # optional, default is USAGE.md
+        # Generate document or table
+        tf_docs_content_type: # optional, default is table
+        # Indention level of Markdown sections [1, 2, 3, 4, 5]
+        tf_docs_indention: # optional, default is 2
+        # Additional args to pass to the command see https://github.com/segmentio/terraform-docs/tree/master/docs
+        tf_docs_args: # optional, default is 
+        # Method should be one of (replace/inject/print) where replace will replace the tf_docs_output_file, inject will inject the content between start and close delims and print will just print the output
+        tf_docs_output_method: # optional, default is inject
+        # If true it will commit and push the changes
+        tf_docs_git_push: # optional, default is false
+        # Commit message
+        tf_docs_git_commit_message: # optional, default is terraform-docs: automated action
+        # When provided will be used as the template if/when the OUTPUT_FILE does not exist
+        tf_docs_template: # optional, default is # Usage
+    <!--- BEGIN_TF_DOCS --->
+    <!--- END_TF_DOCS --->
