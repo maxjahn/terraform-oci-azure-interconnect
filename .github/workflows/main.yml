@@ -12,21 +12,25 @@ jobs:
 
     - uses: actions/checkout@v2
     
-    - name: terraform-validate
-      # You may pin to the exact commit or the version.
-      # uses: dflook/terraform-validate@ae1bdb703064ad29842938c230cbb2bfecd155e2
-      uses: dflook/terraform-validate@v1.4.1
-      with:
-        # Path to the terraform configuration
-        path: .
-    
-    - name: terraform-fmt
-      # You may pin to the exact commit or the version.
-      # uses: dflook/terraform-fmt@80e2fe31f8db99ea0e0e907478e6ce05a99af809
-      uses: dflook/terraform-fmt@v1.4.1
-      with:
-        # Path to the terraform configuration
-        path: .
+    - uses: hashicorp/setup-terraform@v1
+
+    - name: Terraform fmt
+      id: fmt
+      run: terraform fmt
+      continue-on-error: true
+
+    - name: Terraform Init
+      id: init
+      run: terraform init
+
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate -no-color
+
+    - name: Terraform Plan
+      id: plan
+      run: terraform plan -no-color
+      continue-on-error: true
 
     - name: terraform-docs
       # You may pin to the exact commit or the version.
