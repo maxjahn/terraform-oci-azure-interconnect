@@ -7,13 +7,15 @@ Use this module to easily add an OCI-Azure interconnect to your environment.
 | Name | Version |
 |------|---------|
 | terraform | >= 0.12 |
+| azurerm | >=1.28.0 |
+| oci | >= 3.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| azurerm | n/a |
-| oci | n/a |
+| azurerm | >=1.28.0 |
+| oci | >= 3.0.0 |
 
 ## Inputs
 
