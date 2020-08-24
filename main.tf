@@ -70,10 +70,6 @@ data "oci_core_services" "transit_services" {
   }
 }
 
-# output "transit_services" {
-#   value = [data.oci_core_services.transit_services.services]
-# }
-
 resource "oci_core_route_table" "service_transit_route_table" {
   count = var.enable_service_transit_routing
 
@@ -149,36 +145,6 @@ resource "azurerm_virtual_network_gateway_connection" "conn_vng_gw" {
   express_route_circuit_id     = azurerm_express_route_circuit.connect_erc.id
   express_route_gateway_bypass = var.arm_expressroute_sku == "UltraPerformance" ? true : false
 }
-
-# resource "azurerm_network_security_group" "connect_sg" {
-#   name                = "connect-securitygroup"
-#   location            = var.arm_resource_group_location
-#   resource_group_name = var.arm_resource_group_name
-
-#   security_rule {
-#     name                       = "InboundAllOCI"
-#     priority                   = 100
-#     direction                  = "Inbound"
-#     access                     = "Allow"
-#     protocol                   = "*"
-#     source_port_range          = "*"
-#     destination_port_range     = "*"
-#     source_address_prefix      = var.oci_vcn_cidr
-#     destination_address_prefix = "*"
-#   }
-
-#   security_rule {
-#     name                       = "OutboundAll"
-#     priority                   = 110
-#     direction                  = "Outbound"
-#     access                     = "Allow"
-#     protocol                   = "*"
-#     source_port_range          = "*"
-#     destination_port_range     = "*"
-#     source_address_prefix      = "*"
-#     destination_address_prefix = "*"
-#   }
-# }
 
 resource "azurerm_express_route_circuit" "connect_erc" {
   name                  = "oci-connect-expressroute"
