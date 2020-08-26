@@ -12,7 +12,7 @@
  *
  * Example (Amsterdam region):
  * 
- ```
+ * ```
  * module "interconnect" {
  *  source = "github.com/maxjahan/oci-azure-interconnect"
  *   
@@ -34,8 +34,9 @@
  *   oci_fastconnect_bandwidth        = "1 Gbps"
  * }
  *
+ * ```
  */
-```
+
 
 ## oci setup
 
