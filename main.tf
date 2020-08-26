@@ -14,7 +14,7 @@
  * 
  * ```
  * module "interconnect" {
- *  source = "github.com/maxjahan/oci-azure-interconnect"
+ *  source = "github.com/maxjahan/terraform-oci-azure-interconnect"
  *   
  *   oci_compartment_ocid             = var.oci_compartment_ocid
  *   oci_vcn_id                       = oci_core_virtual_network.service_vcn.id
