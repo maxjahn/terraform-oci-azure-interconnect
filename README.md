@@ -2,43 +2,68 @@
 
 Use this module to easily add an OCI-Azure interconnect to your environment.
 
+Prepare these resources to create the interconnect in:
+- OCI compartment
+- OCI VCN
+- Azure resource group
+- Azure VNet
+
+Example (Amsterdam region):
+
+module "interconnect" {  
+ source = "./modules/interconnect"
+
+  oci\_compartment\_ocid             = var.oci\_compartment\_ocid  
+  oci\_vcn\_id                       = oci\_core\_virtual\_network.service\_vcn.id
+
+  az\_resource\_group\_name           = "interconnect\_ams"  
+  az\_vnet\_name                     = "interconnect\_vnet"  
+  az\_gw\_subnet\_cidr                = "10.1.99.0/24"
+
+  az\_expressroute\_peering\_location = "Amsterdam2"
+
+  interconnect\_peering\_net         = "10.99.0.0/24"
+
+  # optional  
+  enable\_service\_transit\_routing   = 0  
+  az\_expressroute\_sku              = "Standard"  
+  az\_expressroute\_bandwidth        = 1000  
+  oci\_fastconnect\_bandwidth        = "1 Gbps"
+}
+
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | terraform | >= 0.12 |
-| azurerm | >=1.28.0 |
-| oci | >= 3.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| azurerm | >=1.28.0 |
-| oci | >= 3.0.0 |
+| azurerm | n/a |
+| oci | n/a |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| arm\_expressroute\_bandwidth | Bandwidth in mbps for Azure ExpressRoute | `number` | `1000` | no |
-| arm\_expressroute\_peering\_location | Peering location, get it from https://docs.microsoft.com/en-us/azure/expressroute/expressroute-locations | `any` | n/a | yes |
-| arm\_expressroute\_sku | Azure ExpressRoute SKU, use UltraPerformance to enable fastpath | `string` | `"Standard"` | no |
-| arm\_gw\_subnet\_id | ID for Azure subnet to contain VNG, to be set up outside this module | `any` | n/a | yes |
-| arm\_resource\_group\_location | Azure resource group location | `any` | n/a | yes |
-| arm\_resource\_group\_name | Azure resource group name | `any` | n/a | yes |
-| arm\_vnet\_cidr | CIDR block for the Azure VNet, to be set up outside this module | `any` | n/a | yes |
+| az\_expressroute\_bandwidth | Bandwidth in mbps for Azure ExpressRoute | `number` | `1000` | no |
+| az\_expressroute\_peering\_location | Peering location, get it from https://docs.microsoft.com/en-us/azure/expressroute/expressroute-locations | `any` | n/a | yes |
+| az\_expressroute\_sku | Azure ExpressRoute SKU, use UltraPerformance to enable fastpath | `string` | `"Standard"` | no |
+| az\_gw\_subnet\_cidr | CIDR for Azure subnet to contain VNG, to be set up outside this module | `any` | n/a | yes |
+| az\_resource\_group\_name | Azure resource group name | `any` | n/a | yes |
+| az\_vnet\_name | Name of Azure VNet, to be set up outside this module | `any` | n/a | yes |
 | enable\_service\_transit\_routing | Enable OCI service transit routing, enabled by default | `number` | `1` | no |
-| oci\_azure\_provider\_ocid | OCID of Azure FastConnect provider in the region you plan to setup the interconnect. Get that OCID by running the following command: oci network fast-connect-provider-service list --all --region your\_region --compartment-id your\_compartment\_ocid | `any` | n/a | yes |
+| interconnect\_peering\_net | /24 CIDR block to be used for peering | `string` | `"10.99.0.0/24"` | no |
 | oci\_compartment\_ocid | OCID of OCI compartment to create interconnet in | `any` | n/a | yes |
 | oci\_fastconnect\_bandwidth | Bandwidth for OCI FastConnect | `string` | `"1 Gbps"` | no |
-| oci\_vcn\_default\_route\_table\_id | Default route table OCID for your VCN | `any` | n/a | yes |
 | oci\_vcn\_id | OCID of OCI VCN, to be set up outside this module | `any` | n/a | yes |
-| peering\_net | /24 CIDR block to be used for peering | `string` | `"10.99.0.0/24"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
+| interconnect\_az\_gw\_subnet\_id | ID of Azure gateway subnet that has been created |
 | interconnect\_drg\_id | OCID of OCI DRG used for interconnect. |
 | interconnect\_vng\_id | ID of Azure VNG used for interconnect |
