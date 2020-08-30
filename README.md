@@ -55,7 +55,7 @@ version = "1.0.0"
 | az\_expressroute\_bandwidth | Bandwidth in mbps for Azure ExpressRoute | `number` | `1000` | no |
 | az\_expressroute\_peering\_location | Peering location, get it from https://docs.microsoft.com/en-us/azure/expressroute/expressroute-locations | `any` | n/a | yes |
 | az\_expressroute\_sku | Azure ExpressRoute SKU, use UltraPerformance to enable fastpath | `string` | `"Standard"` | no |
-| az\_gw\_subnet\_cidr | CIDR for Azure subnet to contain VNG, to be set up outside this module | `any` | n/a | yes |
+| az\_gw\_subnet\_cidr | CIDR for Azure subnet to contain VNG | `any` | n/a | yes |
 | az\_resource\_group\_name | Azure resource group name | `any` | n/a | yes |
 | az\_vnet\_name | Name of Azure VNet, to be set up outside this module | `any` | n/a | yes |
 | enable\_service\_transit\_routing | Enable OCI service transit routing, enabled by default | `number` | `1` | no |
