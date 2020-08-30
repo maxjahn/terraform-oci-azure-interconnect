@@ -47,7 +47,7 @@ variable "az_vnet_name" {
 }
 
 variable "az_gw_subnet_cidr" {
-    description = "CIDR for Azure subnet to contain VNG, to be set up outside this module"
+    description = "CIDR for Azure subnet to contain VNG"
 }
 
 variable "interconnect_peering_net" {
